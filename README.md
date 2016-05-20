@@ -23,7 +23,7 @@ This repository is intended to include all packages to be enableded into Openwhi
 ####Register Device
  An action to register new device to Watson IoT platform.
 
- | **Parameter**     | **Type** | **Required** | **Description**| **Options** | **Default** | **Example** |
+| **Parameter** | **Type** | **Required** | **Description**| **Options** | **Default** | **Example** |
 | ------------- | ---- | -------- | ------------ | ------- | ------- |------- |
 | apiKey | *string* | yes |  Watson IoT platform apiKey | - | - | "XXXXX" |
 | authToken | *string* | yes |  Watson IoT platform authonToken | - | - | "XXXXXXXXX" |
@@ -41,10 +41,10 @@ This repository is intended to include all packages to be enableded into Openwhi
 | descriptiveLocation | *string* | no | A descriptive location, such as a room or building number, or a geographical region | - | - | "Office 220, building 16" |
 | long | *decimal* | no | Longitude in decimal degrees using the WGS84 system | - | - | 9.038550 |
 | lat | *decimal* | no | Latitude in decimal degrees using the WGS84 system | - | - | 48.665390 |
-| elev | *decimal* | no |  Elevation in meters using the WGS84 system | 507 |
+| elev | *decimal* | no |  Elevation in meters using the WGS84 system | - | - | 507 |
 | accuracy | *decimal* | no | Accuracy of the position in meters | false,true | - | 5 |
 | measuredDateTime | *string* | no | Date and time of location measurement (ISO8601) | - | - | "2016-05-19T11:36:42.825Z" |
-| metadata | *object* | no | Metadata of the device | - | - | ```javascript {"customField1": "customValue1","customField2": "customValue2"}` |
+| metadata | *object* | no | Metadata of the device | - | - | {"customField1": "customValue1","customField2": "customValue2"} |
 
 ####Delete Device
 
