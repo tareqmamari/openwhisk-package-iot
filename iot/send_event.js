@@ -1,15 +1,15 @@
  var request = require('request');
 
  /**
-  * An action to device event (.
-  * @param      {string}  apiKey                    (required)                     Watson IoT platform apiKey
-  * @param      {string}  authToken                 (required)                     Authentication token of an Watson IoT platform
-  * @param      {string}  orgId                     (required)                     IoT platform Organization Id
-  * @param      {string}  deviceType                (required)                     Watson IoT platform apiKey
-  * @param      {string}  deviceId                  (required)                     Authentication token of an Watson IoT platform
-  * @param      {string}  eventName                 (required)                     IoT platform Organization Id
-  * @param      {string}  eventBody                 (required)                     IoT platform Organization Id
-  * @return     {Object}                                                           Done with the result of invokation
+  * Send an event from an application simulating a device.
+  * @param      {string}  apiKey    (required)  Watson IoT platform apiKey
+  * @param      {string}  authToken (required)  Authentication token of an Watson IoT platform
+  * @param      {string}  orgId     (required)  IoT platform Organization Id
+  * @param      {string}  typeId    (required)  Watson IoT platform apiKey
+  * @param      {string}  deviceId  (required)  Authentication token of an Watson IoT platform
+  * @param      {string}  eventName (required)  Event Name 
+  * @param      {string}  eventBody (required)  Event Data
+  * @return     {Object}                        Done with the result of invokation
   **/
  function main(params) {
 
@@ -19,7 +19,7 @@
 
      var options = {
          method: 'POST',
-         url: baseUrl + '/application/types/' + params.deviceType + '/devices/' + params.deviceId + '/events/' + params.eventName,
+         url: baseUrl + '/application/types/' + params.typeId + '/devices/' + params.deviceId + '/events/' + params.eventName,
          body: params.eventBody,
          headers: {
              'Content-Type': 'application/json',
@@ -34,19 +34,15 @@
                  response: "Event is successfully sent"
              });
          } else {
-             if (res) {
-                 console.error("Status code: " + res.statusCode);
-                 return whisk.error({
-                     response: "Event is unsuccessfully sent"
-                 });
-
-             } else {
-                 console.error(err);
-                 return whisk.error({
-                     response: "Event is unsuccessfully sent"
-                 });
-             }
-
+             console.error('http status code:', (res || {}).statusCode);
+             console.error('error:', err);
+             console.error('body:', body);
+             console.error('response',res);
+             whisk.error({
+                 statusCode: (res || {}).statusCode,
+                 error: err,
+                 body: body
+             });
          }
      });
 

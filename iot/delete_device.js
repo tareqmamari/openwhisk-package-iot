@@ -1,13 +1,13 @@
  var request = require('request');
 
  /**
-  * An action to delete a device.
-  * @param      {string}  apiKey                    (required)                     Watson IoT platform apiKey
-  * @param      {string}  authToken                 (required)                     Authentication token of an Watson IoT platform
-  * @param      {string}  orgId                     (required)                     IoT platform Organization Id
-  * @param      {string}  deviceType                (required)                     Watson IoT platform apiKey
-  * @param      {string}  deviceId                  (required)                     Authentication token of an Watson IoT platform
-  * @return     {Object}                                                           Done with the result of invokation
+  * Delete a registered device in Watson IoT Platform
+  * @param      {string}  apiKey    (required)  Watson IoT platform apiKey
+  * @param      {string}  authToken (required)  Authentication token of an Watson IoT platform
+  * @param      {string}  orgId     (required)  IoT platform Organization Id
+  * @param      {string}  typeId    (required)  Watson IoT platform apiKey
+  * @param      {string}  deviceId  (required)  Authentication token of an Watson IoT platform
+  * @return     {Object}                        Done with the result of invokation
   **/
  function main(params) {
 
@@ -17,7 +17,7 @@
 
      var options = {
          method: 'DELETE',
-         url: baseUrl + '/device/types/' + params.deviceType + '/devices/' + params.deviceId,
+         url: baseUrl + '/device/types/' + params.typeId + '/devices/' + params.deviceId,
          headers: {
              'Authorization': authorizationHeader
          }
@@ -30,18 +30,15 @@
                  response: "Device is successfully deleted"
              });
          } else {
-             if (res) {
-                 console.error("Status code: " + res.statusCode);
-                 return whisk.error({
-                     response: "Device is unsuccessfully deleted"
-                 });
-             } else {
-                 console.error(err);
-                 return whisk.error({
-                     response: "Device is unsuccessfully deleted"
-                 });
-             }
-
+             console.error('http status code:', (res || {}).statusCode);
+             console.error('error:', err);
+             console.error('body:', body);
+             console.error('response',res);
+             whisk.error({
+                 statusCode: (res || {}).statusCode,
+                 error: err,
+                 body: body
+             });
          }
      });
 
