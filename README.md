@@ -61,7 +61,7 @@ Example of success reponse:
 
 #####Parameters:
 
- | **Parameter** | **Type** | **Required** | **Description**| **Options** | **Default** | **Example** |
+| **Parameter** | **Type** | **Required** | **Description**| **Options** | **Default** | **Example** |
 | ------------- | ---- | -------- | ------------ | ------- | ------- |------- |
 | apiKey | *string* | yes |  Watson IoT platform apiKey | - | - | "XXXXX" |
 | authToken | *string* | yes |  Watson IoT platform authonToken | - | - | "XXXXXXXXX" |
