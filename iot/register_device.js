@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-
-
 var request = require('request');
 
 /**
@@ -44,59 +42,94 @@ var request = require('request');
  **/
 function main(params) {
 
-    var baseUrl = 'https://' + params.orgId + '.internetofthings.ibmcloud.com:443/api/v0002';
+    var requiredParams = ["apiKey", "authToken", 'orgId', 'typeId', 'deviceId'];
 
-    var authorizationHeader = "Basic " + new Buffer(params.apiKey + ":" + params.authToken).toString("base64");
-
-    var deviceInfo = {
-        "serialNumber": params.sn,
-        "manufacturer": params.manufacturer,
-        "model": params.model,
-        "deviceClass": params.deviceClass,
-        "description": params.description,
-        "fwVersion": params.fwVersion,
-        "hwVersion": params.hwVersion,
-        "descriptiveLocation": params.descriptiveLocation
-    };
-
-    var location = {
-        "longitude": params.long,
-        "latitude": params.lat,
-        "elevation": params.elev,
-        "accuracy": params.accuracy,
-        "measuredDateTime": params.measuredDateTime
-    };
-
-    var body = {
-        "deviceId": params.deviceId,
-        "authToken": params.deviceAuthToken,
-        "deviceInfo": deviceInfo,
-        "location": location,
-        "metadata": params.metadata
-    };
-
-    var options = {
-        method: 'POST',
-        url: baseUrl + '/device/types/' + params.typeId + '/devices',
-        body: JSON.stringify(body),
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': authorizationHeader
-        }
-    };
-
-    request(options, function(err, res, body) {
-        if (!err && res.statusCode === 201) {
-            var b = JSON.parse(body);
-            whisk.done(b);
+    checkParameters(params, requiredParams, function(missingParams) {
+        if (missingParams != "") {
+            console.error("Missing required parameters: " + missingParams);
+            return whisk.error("Missing required parameters: " + missingParams);
         } else {
-            whisk.error({
-                statusCode: (res || {}).statusCode,
-                error: err,
-                body: body
+            var baseUrl = 'https://' + params.orgId + '.internetofthings.ibmcloud.com:443/api/v0002';
+
+            var authorizationHeader = "Basic " + new Buffer(params.apiKey + ":" + params.authToken).toString("base64");
+
+            var deviceInfo = {
+                "serialNumber": params.sn,
+                "manufacturer": params.manufacturer,
+                "model": params.model,
+                "deviceClass": params.deviceClass,
+                "description": params.description,
+                "fwVersion": params.fwVersion,
+                "hwVersion": params.hwVersion,
+                "descriptiveLocation": params.descriptiveLocation
+            };
+
+            var location = {
+                "longitude": params.long,
+                "latitude": params.lat,
+                "elevation": params.elev,
+                "accuracy": params.accuracy,
+                "measuredDateTime": params.measuredDateTime
+            };
+
+            var body = {
+                "deviceId": params.deviceId,
+                "authToken": params.deviceAuthToken,
+                "deviceInfo": deviceInfo,
+                "location": location,
+                "metadata": params.metadata
+            };
+
+            var options = {
+                method: 'POST',
+                url: baseUrl + '/device/types/' + params.typeId + '/devices',
+                body: JSON.stringify(body),
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': authorizationHeader
+                }
+            };
+
+            request(options, function(err, res, body) {
+                if (!err && res.statusCode === 201) {
+                    var b = JSON.parse(body);
+                    whisk.done(b);
+                } else {
+                    whisk.error({
+                        statusCode: (res || {}).statusCode,
+                        error: err,
+                        body: body
+                    });
+                }
             });
         }
     });
 
+
     return whisk.async();
+}
+
+
+/**
+ *  A function that check whether the parameters passed are required or not
+ *
+ * @param      {object}    params    An object contains the parameter required
+ *                                   in otder to check it and generate a sting
+ *                                   that contains list of missing parameters
+ * @param      {Function}  callback  the callback function has the generated
+ *                                   string or an empyt string if the params is
+ *                                   empty
+ */
+function checkParameters(params, requiredParams, callback) {
+    console.log("Checking Existiance of Required Parameters");
+    var missingParams = [];
+    for (var i = requiredParams.length - 1; i >= 0; i--) {
+        console.log(requiredParams[i]);
+        if (!params.hasOwnProperty(requiredParams[i])) {
+            missingParams.push(requiredParams[i]);
+        }
+        if (i == 0)
+            return callback(missingParams);
+
+    }
 }
