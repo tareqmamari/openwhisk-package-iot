@@ -35,7 +35,7 @@ var request = require('request');
 
 function main(params) {
 
-    var requiredParams = ["apiKey", "authToken", 'orgId', 'typeId', 'deviceId', 'eventName', 'eventBody'];
+    var requiredParams = ["apiKey", "authToken", 'orgId', 'typeId'];
 
     checkParameters(params, requiredParams, function(missingParams) {
         if (missingParams != "") {
@@ -48,20 +48,20 @@ function main(params) {
 
 
             var deviceInfo = {
-                "serialNumber": params.serialNumber, //optional
-                "manufacturer": params.manufacturer, //optional
-                "model": params.model, //optional
-                "deviceClass": params.deviceClass, //optional
-                "description": params.description, //optional
-                "fwVersion": params.fwVersion, //optional
-                "hwVersion": params.hwVersion, //optional
-                "descriptiveLocation": params.descriptiveLocation //optional
+                "serialNumber": params.serialNumber,
+                "manufacturer": params.manufacturer,
+                "model": params.model,
+                "deviceClass": params.deviceClass,
+                "description": params.description,
+                "fwVersion": params.fwVersion,
+                "hwVersion": params.hwVersion,
+                "descriptiveLocation": params.descriptiveLocation
             };
 
             var metadata = params.metadata;
             var body = {
-                "id": params.id, //required
-                "description": params.description, //optional
+                "id": params.id,
+                "description": params.description,
                 "classId": "Device",
                 "deviceInfo": deviceInfo,
                 "metadata": metadata
@@ -112,7 +112,7 @@ function checkParameters(params, requiredParams, callback) {
     console.log("Checking Existiance of Required Parameters");
     var missingParams = [];
     for (var i = requiredParams.length - 1; i >= 0; i--) {
-      console.log(requiredParams[i]);
+        console.log(requiredParams[i]);
         if (!params.hasOwnProperty(requiredParams[i])) {
             missingParams.push(requiredParams[i]);
         }
