@@ -37,46 +37,6 @@ install "$CATALOG_HOME/iot/rti_webhook.js" \
     github/webhook \
     -a feed true \
     -a description 'Creates a rule and an RTI action to get messages whenever the condition is met' \
-    -a parameters '[{
-    "name": "apiKey",
-    "required": true,
-    "bindTime": true
-}, {
-    "name": "authToken",
-    "required": true,
-    "bindTime": true
-}, {
-    "name": "schemaName",
-    "required": true,
-    "bindTime": true
-}, {
-    "name": "condition",
-    "required": true,
-    "bindTime": true
-},
-{
-    "name": "callbackBody",
-    "required": false,
-    "bindTime": false
-}, {
-    "name": "name",
-    "required": false,
-    "bindTime": false
-}, {
-    "name": "description",
-    "required": false,
-    "bindTime": false
-}, {
-    "name": "severity",
-    "required": false,
-    "bindTime": false
-}]' \
-    -a sampleInput '{
-    "apiKey": "ABCDEF",
-    "authToken": "IamCovert",
-    "schemaName": "schema",
-    "condition": "schema.value>1"
-}'
 
 waitForAll
 
