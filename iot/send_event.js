@@ -14,8 +14,6 @@
  * limitations under the License.
  */
 
-
-
 var request = require('request');
 
 /**
@@ -68,8 +66,6 @@ function main(params) {
     return whisk.async();
 }
 
-
-
 /**
  *  A function that check whether the parameters passed are required or not
  *
@@ -90,6 +86,5 @@ function checkParameters(params, requiredParams, callback) {
         }
         if (i == 0)
             return callback(missingParams);
-
     }
 }
