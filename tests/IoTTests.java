@@ -43,7 +43,7 @@ public class IoTTests {
 	}
 
 	@Test
-	public void testCreateDevice() throws Exception {
+	public void testCreateDeviceType() throws Exception {
 		String action = "/whisk.system/iot/create_device_type";
 
 		Map<String, String> credentials = TestUtils.getVCAPcredentials("iot");
@@ -54,7 +54,7 @@ public class IoTTests {
 		Map<String, String> params = TestUtils.makeParameter(
 				make("apiKey", apiKey),
 				make("authToken", authToken),
-				make("id", "OWTestDeviceType"),
+				make("typeId", "OWTestDeviceType"),
 				make("orgId", orgId)
 		);
 
@@ -63,7 +63,7 @@ public class IoTTests {
 		JsonObject parsedResponse = new JsonParser().parse(reponse.snd).getAsJsonObject();
 		JsonObject result = parsedResponse.getAsJsonObject("result");
 		assertTrue("Response should contains information of the created device type",
-				result.has("id") && (result.get("id").getAsString().equals(params.get("id"))));
+				result.has("typeId") && (result.get("typeId").getAsString().equals(params.get("typeId"))));
 	}
 	
 	@Test
