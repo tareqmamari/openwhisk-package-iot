@@ -14,6 +14,8 @@
  * limitations under the License.
  */
 
+var request = require('request');
+
 /**
  * An action to create new device Type in Watson IoT platform.
  * @param      {string}  apiKey                    (required)  Watson IoT platform apiKey
@@ -31,8 +33,6 @@
  * @param      {object}  metadata                  (optional)  Metadata of the device
  * @return     {Object}                                        Done with the result of invokation
  **/
-var request = require('request');
-
 function main(params) {
 
     var requiredParams = ["apiKey", "authToken", 'orgId', 'typeId'];
