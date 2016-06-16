@@ -69,15 +69,16 @@ function main(params) {
 }
 
 
+
 /**
  *  A function that check whether the parameters passed are required or not
  *
  * @param      {object}    params    An object contains the parameter required
- *                                   in otder to check it and generate a sting
- *                                   that contains list of missing parameters
+ *                                   in order to check it and generate a string
+ *                                   that contains a list of missing parameters
  * @param      {Function}  callback  the callback function has the generated
- *                                   string or an empyt string if the params is
- *                                   empty
+ *                                   array or an empyt one if the params is
+ *                                   empty or nothing is missing
  */
 function checkParameters(params, requiredParams, callback) {
     console.log("Checking Existiance of Required Parameters");
