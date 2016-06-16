@@ -42,9 +42,6 @@ public class IoTTests {
 	public static void setUp() throws Exception {
 	}
 
-	/**
-	 * Test the greeting action.
-	 */
 	@Test
 	public void testCreateDevice() throws Exception {
 		String action = "/whisk.system/iot/create_device_type";
@@ -67,7 +64,6 @@ public class IoTTests {
 		JsonObject result = parsedResponse.getAsJsonObject("result");
 		assertTrue("Response should contains information of the created device type",
 				result.has("id") && (result.get("id").getAsString().equals(params.get("id"))));
-
 	}
 	
 	@Test
@@ -80,7 +76,6 @@ public class IoTTests {
 		String orgId = credentials.get("orgId");
 		String testDeviceType = credentials.get("deviceType");
 		
-
 		Map<String, String> params = TestUtils.makeParameter(
 				make("apiKey", apiKey), 
 				make("authToken", authToken),
@@ -95,7 +90,6 @@ public class IoTTests {
 		JsonObject result = parsedResponse.getAsJsonObject("result");
 		assertTrue("Response should contains information of the registered device",
 				result.has("deviceId") && (result.get("deviceId").getAsString().equals(params.get("deviceId"))));
-
 	}
 	
 	@Test
@@ -109,7 +103,6 @@ public class IoTTests {
 		String testDeviceType = credentials.get("deviceType");
 		String testDeviceId = credentials.get("deviceId");
 		
-
 		Map<String, String> params = TestUtils.makeParameter(
 				make("apiKey", apiKey), 
 				make("authToken", authToken),
@@ -139,7 +132,6 @@ public class IoTTests {
 		String testDeviceType = credentials.get("deviceType");
 		String testDeviceId = credentials.get("deviceId");
 		
-
 		Map<String, String> params = TestUtils.makeParameter(
 				make("apiKey", apiKey), 
 				make("authToken", authToken),
