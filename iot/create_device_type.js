@@ -20,7 +20,7 @@
  * @param      {string}  authToken                 (required)  Authentication token of an Watson IoT platform
  * @param      {string}  orgId                     (required)  IoT platform Organization Id
  * @param      {string}  typeId                    (required)  Device Type Id
- * @param      {string}  serialNumber              (optional)  The serial number of the device type
+ * @param      {string}  serialNumber              (optional)  The serial number of the device
  * @param      {string}  manufacturer              (optional)  The manufacturer of the device
  * @param      {string}  model                     (optional)  The model of the device
  * @param      {string}  deviceClass               (optional)  The class of the device
