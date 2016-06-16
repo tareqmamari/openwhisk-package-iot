@@ -60,7 +60,7 @@ function main(params) {
 
             var metadata = params.metadata;
             var body = {
-                "id": params.id,
+                "id": params.typeId,
                 "description": params.description,
                 "classId": "Device",
                 "deviceInfo": deviceInfo,
