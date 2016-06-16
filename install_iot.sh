@@ -14,7 +14,6 @@
 # limitations under the License.
 #/
 
-
 #!/bin/bash
 #
 # use the command line interface to install Git package.
@@ -29,14 +28,13 @@ source "$CATALOG_HOME/util.sh"
 echo Installing IoT Platform and Real-Time insights .
 
 createPackage iot \
-    -a description "Package which contains actions and a feed for IoT IoT Platform and Real-Time insights services"
+    -a description "Package which contains actions Watson IoT Platform service"
 
 waitForAll
 
-install "$CATALOG_HOME/iot/rti_webhook.js" \
-    github/webhook \
-    -a feed true \
-    -a description 'Creates a rule and an RTI action to get messages whenever the condition is met' \
+install "$CATALOG_HOME/iot/create_device_type.js" \
+    iot/create_device_type \
+    -a description 'Create new device Type in Watson IoT platform' \
     -a parameters '[{
     "name": "apiKey",
     "required": true,
@@ -46,36 +44,56 @@ install "$CATALOG_HOME/iot/rti_webhook.js" \
     "required": true,
     "bindTime": true
 }, {
-    "name": "schemaName",
+    "name": "orgId",
     "required": true,
     "bindTime": true
 }, {
-    "name": "condition",
+    "name": "typeId",
     "required": true,
     "bindTime": true
 },
 {
-    "name": "callbackBody",
+    "name": "serialNumber",
     "required": false,
     "bindTime": false
 }, {
-    "name": "name",
+    "name": "manufacturer",
     "required": false,
     "bindTime": false
 }, {
+    "name": "model",
+    "required": false,
+    "bindTime": false
+}, {
+    "name": "deviceClass",
+    "required": false,
+    "bindTime": false
+},{
     "name": "description",
     "required": false,
     "bindTime": false
-}, {
-    "name": "severity",
+},{
+    "name": "fwVersion",
+    "required": false,
+    "bindTime": false
+},{
+    "name": "hwVersion",
+    "required": false,
+    "bindTime": false
+},{
+    "name": "descriptiveLocation",
+    "required": false,
+    "bindTime": false
+},{
+    "name": "metadata",
     "required": false,
     "bindTime": false
 }]' \
     -a sampleInput '{
-    "apiKey": "ABCDEF",
-    "authToken": "IamCovert",
-    "schemaName": "schema",
-    "condition": "schema.value>1"
+    "apiKey": "XXXXXX",
+    "authToken": "YYYYYY",
+    "orgId": "ZZZZ",
+    "typeId": "Raspberry_Pi"
 }'
 
 waitForAll
