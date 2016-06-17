@@ -19,7 +19,7 @@
 set -e
 set -x
 
-echo Installing IoT Platform and Real-Time insights \
+echo Installing Watson IoT Platform Package \
 
 $WSK_CLI --apihost "$APIHOST" action update --auth "$AUTH" --shared yes iot \
     -a description "Watson IoT Platform Service Package" \
