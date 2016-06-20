@@ -21,7 +21,7 @@ set -x
 
 echo Installing Watson IoT Platform Package \
 
-$WSK_CLI --apihost "$APIHOST" action update --auth "$AUTH" --shared yes iot \
+$WSK_CLI --apihost "$APIHOST" package update --auth "$AUTH" --shared yes iot \
     -a description "Watson IoT Platform Service Package" \
     -a parameters '[ {"name":"apiKey", "required": false, "bindTime": false}, {"name":"authToken", "required": false, "bindTime": false}, {"name":"orgId", "required": false, "bindTime": false}]'
 
