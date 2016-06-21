@@ -63,5 +63,5 @@ $WSK_CLI --apihost "$APIHOST" action update --auth "$AUTH" --shared yes iot/dele
 $WSK_CLI --apihost "$APIHOST" action update --auth "$AUTH" --shared yes iot/send_event "$PACKAGE_HOME/iot/send_event.js" \
     -a description 'Send events on behalf of a device (simplatuing a device) to Watson iot Platform.' \
     -a parameters '[{"name":"apiKey","required":true,"bindTime":true},{"name":"authToken","required":true,"bindTime":true},{"name":"orgId","required":true,"bindTime":true},{"name":"typeId","required":true,"bindTime":true},{"name":"deviceId","required":true,"bindTime":true},{"name":"eventName","required":true,"bindTime":true},{"name":"eventBody","required":true,"bindTime":true}]' \
-    -a sampleInput '{"apiKey":"XXXXXX","authToken":"YYYYYY","orgId":"ZZZZ","typeId":"Raspberry_Pi","deviceId":"deviceId","eventName":"temperature","{value:42}"}'
+    -a sampleInput '{"apiKey":"XXXXXX","authToken":"YYYYYY","orgId":"ZZZZ","typeId":"Raspberry_Pi","deviceId":"deviceId","eventName":"temperature","{value:42}"}' \
     -a sampleOutput '{"success":"device deleted"}'
