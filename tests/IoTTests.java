@@ -36,118 +36,97 @@ import common.WskCli;
 @RunWith(ParallelRunner.class)
 public class IoTTests {
 
-	private final WskCli wsk = new WskCli();
+    private final WskCli wsk = new WskCli();
 
-	@BeforeClass
-	public static void setUp() throws Exception {
-	}
+    @BeforeClass
+    public static void setUp() throws Exception {
+    }
 
-	@Test
-	public void testCreateDeviceType() throws Exception {
-		String action = "/whisk.system/iot/create_device_type";
+    @Test
+    public void testCreateDeviceType() throws Exception {
+        String action = "/whisk.system/iot/create_device_type";
 
-		Map<String, String> credentials = TestUtils.getVCAPcredentials("iot");
-		String apiKey = credentials.get("apiKey");
-		String authToken = credentials.get("authToken");
-		String orgId = credentials.get("orgId");
+        Map<String, String> credentials = TestUtils.getVCAPcredentials("iot");
+        String apiKey = credentials.get("apiKey");
+        String authToken = credentials.get("authToken");
+        String orgId = credentials.get("orgId");
 
-		Map<String, String> params = TestUtils.makeParameter(
-				make("apiKey", apiKey),
-				make("authToken", authToken),
-				make("typeId", "OWTestDeviceType"),
-				make("orgId", orgId)
-		);
+        Map<String, String> params = TestUtils.makeParameter(make("apiKey", apiKey), make("authToken", authToken),
+                make("typeId", "OWTestDeviceType"), make("orgId", orgId));
 
-		Pair<String, String> reponse = wsk.invokeBlocking(action, params);
+        Pair<String, String> reponse = wsk.invokeBlocking(action, params);
 
-		JsonObject parsedResponse = new JsonParser().parse(reponse.snd).getAsJsonObject();
-		JsonObject result = parsedResponse.getAsJsonObject("result");
-		assertTrue("Response should contains information of the created device type",
-				result.has("typeId") && (result.get("typeId").getAsString().equals(params.get("typeId"))));
-	}
-	
-	@Test
-	public void testRegisterDevice() throws Exception {
-		String action = "/whisk.system/iot/register_device";
+        JsonObject parsedResponse = new JsonParser().parse(reponse.snd).getAsJsonObject();
+        JsonObject result = parsedResponse.getAsJsonObject("result");
+        assertTrue("Response should contains information of the created device type",
+                result.has("typeId") && (result.get("typeId").getAsString().equals(params.get("typeId"))));
+    }
 
-		Map<String, String> credentials = TestUtils.getVCAPcredentials("iot");
-		String apiKey = credentials.get("apiKey");
-		String authToken = credentials.get("authToken");
-		String orgId = credentials.get("orgId");
-		String testDeviceType = credentials.get("deviceType");
-		
-		Map<String, String> params = TestUtils.makeParameter(
-				make("apiKey", apiKey), 
-				make("authToken", authToken),
-				make("orgId", orgId),
-				make("typeId", testDeviceType),
-				make("deviceId","OWTestDevice")
-		);
+    @Test
+    public void testRegisterDevice() throws Exception {
+        String action = "/whisk.system/iot/register_device";
 
-		Pair<String, String> reponse = wsk.invokeBlocking(action, params);
+        Map<String, String> credentials = TestUtils.getVCAPcredentials("iot");
+        String apiKey = credentials.get("apiKey");
+        String authToken = credentials.get("authToken");
+        String orgId = credentials.get("orgId");
+        String testDeviceType = credentials.get("deviceType");
 
-		JsonObject parsedResponse = new JsonParser().parse(reponse.snd).getAsJsonObject();
-		JsonObject result = parsedResponse.getAsJsonObject("result");
-		assertTrue("Response should contains information of the registered device",
-				result.has("deviceId") && (result.get("deviceId").getAsString().equals(params.get("deviceId"))));
-	}
-	
-	@Test
-	public void testSendEvent() throws Exception {
-		String action = "/whisk.system/iot/send_event";
+        Map<String, String> params = TestUtils.makeParameter(make("apiKey", apiKey), make("authToken", authToken),
+                make("orgId", orgId), make("typeId", testDeviceType), make("deviceId", "OWTestDevice"));
 
-		Map<String, String> credentials = TestUtils.getVCAPcredentials("iot");
-		String apiKey = credentials.get("apiKey");
-		String authToken = credentials.get("authToken");
-		String orgId = credentials.get("orgId");
-		String testDeviceType = credentials.get("deviceType");
-		String testDeviceId = credentials.get("deviceId");
-		
-		Map<String, String> params = TestUtils.makeParameter(
-				make("apiKey", apiKey), 
-				make("authToken", authToken),
-				make("orgId", orgId),
-				make("typeId", testDeviceType),
-				make("deviceId",testDeviceId),
-				make("eventName","temprature"),
-				make("eventBody","{temperature: 42}")
-		);
+        Pair<String, String> reponse = wsk.invokeBlocking(action, params);
 
-		Pair<String, String> reponse = wsk.invokeBlocking(action, params);
+        JsonObject parsedResponse = new JsonParser().parse(reponse.snd).getAsJsonObject();
+        JsonObject result = parsedResponse.getAsJsonObject("result");
+        assertTrue("Response should contains information of the registered device",
+                result.has("deviceId") && (result.get("deviceId").getAsString().equals(params.get("deviceId"))));
+    }
 
-		JsonObject parsedResponse = new JsonParser().parse(reponse.snd).getAsJsonObject();
-		JsonObject result = parsedResponse.getAsJsonObject("result");
-		assertTrue("Response should contains information of the registered device",
-				result.has("success") && (result.get("deviceId").getAsString() .equals("event is sent")));
-	}
-	
-	@Test
-	public void testDeleteDevice() throws Exception {
-		String action = "/whisk.system/iot/delete_device";
+    @Test
+    public void testSendEvent() throws Exception {
+        String action = "/whisk.system/iot/send_event";
 
-		Map<String, String> credentials = TestUtils.getVCAPcredentials("iot");
-		String apiKey = credentials.get("apiKey");
-		String authToken = credentials.get("authToken");
-		String orgId = credentials.get("orgId");
-		String testDeviceType = credentials.get("deviceType");
-		String testDeviceId = credentials.get("deviceId");
-		
-		Map<String, String> params = TestUtils.makeParameter(
-				make("apiKey", apiKey), 
-				make("authToken", authToken),
-				make("orgId", orgId),
-				make("typeId", testDeviceType),
-				make("deviceId",testDeviceId),
-				make("eventName","temprature"),
-				make("eventBody","{temperature: 42}")
-		);
+        Map<String, String> credentials = TestUtils.getVCAPcredentials("iot");
+        String apiKey = credentials.get("apiKey");
+        String authToken = credentials.get("authToken");
+        String orgId = credentials.get("orgId");
+        String testDeviceType = credentials.get("deviceType");
+        String testDeviceId = credentials.get("deviceId");
 
-		Pair<String, String> reponse = wsk.invokeBlocking(action, params);
+        Map<String, String> params = TestUtils.makeParameter(make("apiKey", apiKey), make("authToken", authToken),
+                make("orgId", orgId), make("typeId", testDeviceType), make("deviceId", testDeviceId),
+                make("eventName", "temprature"), make("eventBody", "{temperature: 42}"));
 
-		JsonObject parsedResponse = new JsonParser().parse(reponse.snd).getAsJsonObject();
-		JsonObject result = parsedResponse.getAsJsonObject("result");
-		assertTrue("Response should contains information of the registered device",
-				result.has("success") && (result.get("deviceId").getAsString().equals("device deleted")));
-	}
+        Pair<String, String> reponse = wsk.invokeBlocking(action, params);
+
+        JsonObject parsedResponse = new JsonParser().parse(reponse.snd).getAsJsonObject();
+        JsonObject result = parsedResponse.getAsJsonObject("result");
+        assertTrue("Response should contains information of the registered device",
+                result.has("success") && (result.get("deviceId").getAsString().equals("event is sent")));
+    }
+
+    @Test
+    public void testDeleteDevice() throws Exception {
+        String action = "/whisk.system/iot/delete_device";
+
+        Map<String, String> credentials = TestUtils.getVCAPcredentials("iot");
+        String apiKey = credentials.get("apiKey");
+        String authToken = credentials.get("authToken");
+        String orgId = credentials.get("orgId");
+        String testDeviceType = credentials.get("deviceType");
+        String testDeviceId = credentials.get("deviceId");
+
+        Map<String, String> params = TestUtils.makeParameter(make("apiKey", apiKey), make("authToken", authToken),
+                make("orgId", orgId), make("typeId", testDeviceType), make("deviceId", testDeviceId),
+                make("eventName", "temprature"), make("eventBody", "{temperature: 42}"));
+
+        Pair<String, String> reponse = wsk.invokeBlocking(action, params);
+
+        JsonObject parsedResponse = new JsonParser().parse(reponse.snd).getAsJsonObject();
+        JsonObject result = parsedResponse.getAsJsonObject("result");
+        assertTrue("Response should contains information of the registered device",
+                result.has("success") && (result.get("deviceId").getAsString().equals("device deleted")));
+    }
 
 }
