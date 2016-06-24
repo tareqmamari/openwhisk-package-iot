@@ -19,19 +19,19 @@ var request = require('request');
 /**
  * An action to register new device to Watson IoT platform.
  * @param      {string}  apiKey                    (required)  Watson IoT platform apiKey
- * @param      {string}  authToken                 (required)  Authentication token of an Watson IoT platform
+ * @param      {string}  apiToken                  (required)  Authentication token of an Watson IoT platform
  * @param      {string}  orgId                     (required)  IoT platform Organization Id
  * @param      {string}  deviceId                  (required)  Device Name/Id
  * @param      {string}  typeId                    (required)  Device Type Id
  * @param      {string}  deviceAuthToken           (optional)  Device authentication token, default: system will generate one
- * @param      {string}  sn                        (optional)  The serial number of the device
- * @param      {string}  manufacturer              (optional)  The manufacturer of the device
- * @param      {string}  model                     (optional)  The model of the device
- * @param      {string}  deviceClass               (optional)  The class of the device
- * @param      {string}  description               (optional)  The descriptive name of the device
- * @param      {string}  fwVersion                 (optional)  The firmware version currently known to be on the device
- * @param      {string}  hwVersion                 (optional)  The hardware version of the device
- * @param      {string}  descriptiveLocation       (optional)  A descriptive location, such as a room or building number, or a geographical region
+ * @param      {string}  serialNumber              (optional)  Serial number of the device
+ * @param      {string}  manufacturer              (optional)  Manufacturer of the device
+ * @param      {string}  model                     (optional)  Model of the device
+ * @param      {string}  deviceClass               (optional)  Class of the device
+ * @param      {string}  description               (optional)  Descriptive name of the device
+ * @param      {string}  fwVersion                 (optional)  Firmware version currently known to be on the device
+ * @param      {string}  hwVersion                 (optional)  Hardware version of the device
+ * @param      {string}  descriptiveLocation       (optional)  Descriptive location, such as a room or building number, or a geographical region
  * @param      {decimal} long                      (optional)  Longitude in decimal degrees using the WGS84 system
  * @param      {decimal} lat                       (optional)  Latitude in decimal degrees using the WGS84 system
  * @param      {decimal} elev                      (optional)  Elevation in meters using the WGS84 system
@@ -42,7 +42,7 @@ var request = require('request');
  **/
 function main(params) {
 
-    var requiredParams = ["apiKey", "authToken", 'orgId', 'typeId', 'deviceId'];
+    var requiredParams = ["apiKey", "apiToken", 'orgId', 'typeId', 'deviceId'];
 
     checkParameters(params, requiredParams, function(missingParams) {
         if (missingParams != "") {
@@ -51,10 +51,10 @@ function main(params) {
         } else {
             var baseUrl = 'https://' + params.orgId + '.internetofthings.ibmcloud.com:443/api/v0002';
 
-            var authorizationHeader = "Basic " + new Buffer(params.apiKey + ":" + params.authToken).toString("base64");
+            var authorizationHeader = "Basic " + new Buffer(params.apiKey + ":" + params.apiToken).toString("base64");
 
             var deviceInfo = {
-                "serialNumber": params.sn,
+                "serialNumber": params.serialNumber,
                 "manufacturer": params.manufacturer,
                 "model": params.model,
                 "deviceClass": params.deviceClass,
@@ -74,7 +74,7 @@ function main(params) {
 
             var body = {
                 "deviceId": params.deviceId,
-                "authToken": params.deviceAuthToken,
+                "apiToken": params.deviceAuthToken,
                 "deviceInfo": deviceInfo,
                 "location": location,
                 "metadata": params.metadata
