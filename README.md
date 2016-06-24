@@ -2,7 +2,7 @@ OpenWhisk Service Enablement
 ============================
 This repository is intended to include all actions and feeds of Watson IoT Platform.
 
-##[IBM Watson IoT Platform(https://docs.internetofthings.ibmcloud.com/swagger/v0002.html):
+##[IBM Watson IoT Platform](https://docs.internetofthings.ibmcloud.com/swagger/v0002.html):
 ### Getting Started:
 This package contains different actions in order to interact with Watson Iot Platform through Openwhisk, following is a list of prerequisite:
   1. Create an instance of Watson IoT Platform service (Bluemix Catalog)[https://console.ng.bluemix.net/catalog/].
