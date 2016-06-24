@@ -19,23 +19,23 @@ var request = require('request');
 /**
  * An action to create new device Type in Watson IoT platform.
  * @param      {string}  apiKey                    (required)  Watson IoT platform apiKey
- * @param      {string}  authToken                 (required)  Authentication token of an Watson IoT platform
+ * @param      {string}  apiToken                  (required)  Authentication token of an Watson IoT platform
  * @param      {string}  orgId                     (required)  IoT platform Organization Id
  * @param      {string}  typeId                    (required)  Device Type Id
- * @param      {string}  serialNumber              (optional)  The serial number of the device
- * @param      {string}  manufacturer              (optional)  The manufacturer of the device
- * @param      {string}  model                     (optional)  The model of the device
- * @param      {string}  deviceClass               (optional)  The class of the device
- * @param      {string}  description               (optional)  The descriptive name of the device
- * @param      {string}  fwVersion                 (optional)  The firmware version currently known to be on the device
- * @param      {string}  hwVersion                 (optional)  The hardware version of the device
- * @param      {string}  descriptiveLocation       (optional)  A descriptive location, such as a room or building number, or a geographical region
+ * @param      {string}  serialNumber              (optional)  Serial number of the device
+ * @param      {string}  manufacturer              (optional)  Manufacturer of the device
+ * @param      {string}  model                     (optional)  Model of the device
+ * @param      {string}  deviceClass               (optional)  Class of the device
+ * @param      {string}  description               (optional)  Descriptive name of the device
+ * @param      {string}  fwVersion                 (optional)  Firmware version currently known to be on the device
+ * @param      {string}  hwVersion                 (optional)  Hardware version of the device
+ * @param      {string}  descriptiveLocation       (optional)  Descriptive location, such as a room or building number, or a geographical region
  * @param      {object}  metadata                  (optional)  Metadata of the device
  * @return     {Object}                                        Done with the result of invokation
  **/
 function main(params) {
 
-    var requiredParams = ["apiKey", "authToken", 'orgId', 'typeId'];
+    var requiredParams = ["apiKey", "apiToken", 'orgId', 'typeId'];
 
     checkParameters(params, requiredParams, function(missingParams) {
         if (missingParams != "") {
@@ -44,7 +44,7 @@ function main(params) {
         } else {
             var baseUrl = 'https://' + params.orgId + '.internetofthings.ibmcloud.com:443/api/v0002';
 
-            var authorizationHeader = "Basic " + new Buffer(params.apiKey + ":" + params.authToken).toString("base64");
+            var authorizationHeader = "Basic " + new Buffer(params.apiKey + ":" + params.apiToken).toString("base64");
 
 
             var deviceInfo = {
