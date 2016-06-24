@@ -2,13 +2,23 @@ OpenWhisk Service Enablement
 ============================
 This repository is intended to include all actions and feeds of Watson IoT Platform.
 
-##IBM Watson IoT Platform:
+##[IBM Watson IoT Platform(https://docs.internetofthings.ibmcloud.com/swagger/v0002.html):
+### Getting Started:
+This package contains different actions in order to interact with Watson Iot Platform through Openwhisk, following is a list of prerequisite:
+  1. Create an instance of Watson IoT Platform service (Bluemix Catalog)[https://console.ng.bluemix.net/catalog/].
+  
+  2. Generate API Key as well as API Authentication Token:
 
-[Watson IoT Platform API](https://docs.internetofthings.ibmcloud.com/swagger/v0002.html)
+    ```text
+    - In the sidebar of Watson IoT Platform dashboard -> Access 
+    - Select API Keys Tab 
+    - Press Generate API Key button 
+    ```
+  ***Note:*** Copy the API key as well as the authentication token as you will not be able to restore the authentication token after closing the window. 
 
 | Entity | Type | Parameters | Description |
 | --- | --- | --- | --- |
-| `/whisk.system/iot` | package | orgId, apiKey, authToken | Watson IoT Platform Package |
+| `/whisk.system/iot` | package | orgId, apiKey, apiToken | Watson IoT Platform Package |
 | `/whisk.system/iot/create_device_type` | action | see action [details](#create-device-type) | an action to create a new device  type to the IoT platform |
 | `/whisk.system/iot/register_device` | action | see action [details](#register-device) | an action to add a new device to the IoT platform |
 | `/whisk.system/iot/delete_device` | action | see action [details](#delete-device) | an action to delete a registered device |
@@ -23,7 +33,7 @@ An action to create a new device type to the IoT platform.
 | **Parameter** | **Type** | **Required** | **Description**| **Options** | **Default** | **Example** |
 | ------------- | ---- | -------- | ------------ | ------- | ------- |------- |
 | apiKey | *string* | yes |  Watson IoT platform apiKey | - | - | "XXXXX" |
-| authToken | *string* | yes |  Watson IoT platform authonToken | - | - | "XXXXXXXXX" |
+| apiToken | *string* | yes |  Watson IoT platform API authentication token | - | - | "XXXXXXXXX" |
 | orgId | *string* | yes |  Watson IoT platform organization ID | - | - | "xvfrw1" |
 | typeId | *string* | yes | Device Type ID | - | - |"sampleType" |
 | serialNumber | *string* | no | The serial number of the device | - | - | "10211002XYZ" |
@@ -39,18 +49,20 @@ An action to create a new device type to the IoT platform.
 #####Usage
 To use this action, you need to pass the needed parameters (see the table above)
 ```bash
-wsk action invoke /whisk.system/iot/create_device_type -p orgId 'xxxxx' -p apiKey 'yyyyyy' -p authToken 'zzzzzzzz' -p typeId 'Raspberry_Pi' --blocking
+wsk action invoke /whisk.system/iot/create_device_type -p orgId 'xxxxx' -p apiKey 'yyyyyy' -p apiToken 'zzzzzzzz' -p typeId 'Raspberry_Pi' --blocking
 ```
-**orgId**, **apiKey** as well as **authToken** parameters can be ignored if it is already passed to the package at binding time.
+**orgId**, **apiKey** as well as **apiToken** parameters can be ignored if it is already passed to the package at binding time.
 
-Example of success reponse:
+Example of success response:
 ```javascript
 {
-     "classId": "Device",
-     "createdDateTime": "2016-06-16T10:27:43+00:00",
-     "deviceInfo": {},
-     "id": "Raspberry_Pi",
-     "updatedDateTime": "2016-06-16T10:27:43+00:00"
+  "classId": "Device",
+  "createdDateTime": "2016-06-16T10:27:43+00:00",
+  "deviceInfo": {
+    
+  },
+  "id": "Raspberry_Pi",
+  "updatedDateTime": "2016-06-16T10:27:43+00:00"
 }
 ```
 
@@ -62,7 +74,7 @@ An action to register new device to Watson IoT platform.
 | **Parameter** | **Type** | **Required** | **Description**| **Options** | **Default** | **Example** |
 | ------------- | ---- | -------- | ------------ | ------- | ------- |------- |
 | apiKey | *string* | yes |  Watson IoT platform apiKey | - | - | "XXXXX" |
-| authToken | *string* | yes |  Watson IoT platform authonToken | - | - | "XXXXXXXXX" |
+| apiToken | *string* | yes |  Watson IoT platform authonToken | - | - | "XXXXXXXXX" |
 | orgId | *string* | yes |  Watson IoT platform organization ID | - | - | "xvfrw1" |
 | deviceId | *string* | yes | Device ID | - | - | "newDevice" |
 | typeId | *string* | yes | Device Type ID | - | - |"sampleType" |
@@ -85,14 +97,14 @@ An action to register new device to Watson IoT platform.
 #####Usage
 To use this action, you need to pass the needed parameters (see the table above)
 ```bash
-wsk action invoke /whisk.system/iot/register_device -p orgId 'xxxxx' -p apiKey 'yyyyyy' -p authToken 'zzzzzzzz' -p typeId 'Raspberry_Pi' -p deviceId "deviceId" --blocking
+wsk action invoke /whisk.system/iot/register_device -p orgId 'xxxxx' -p apiKey 'yyyyyy' -p apiToken 'zzzzzzzz' -p typeId 'Raspberry_Pi' -p deviceId "deviceId" --blocking
 ```
-**orgId**, **apiKey** as well as **authToken** parameters can be ignored if it is already passed to the package at binding time.
+**orgId**, **apiKey** as well as **apiToken** parameters can be ignored if it is already passed to the package at binding time.
 
 Example of success reponse:
 ```javascript
 {
-  "authToken": "xxxxxxxxx",
+  "apiToken": "xxxxxxxxx",
   "clientId": "d:orgId:Raspberry_Pi:deviceId",
   "deviceId": "deviceId",
   "deviceInfo": {
@@ -130,19 +142,19 @@ Example of success reponse:
 | **Parameter** | **Type** | **Required** | **Description**| **Options** | **Default** | **Example** |
 | ------------- | ---- | -------- | ------------ | ------- | ------- |------- |
 | apiKey | *string* | yes |  Watson IoT platform apiKey | - | - | "XXXXX" |
-| authToken | *string* | yes |  Watson IoT platform authonToken | - | - | "XXXXXXXXX" |
+| apiToken | *string* | yes |  Watson IoT platform authonToken | - | - | "XXXXXXXXX" |
 | orgId | *string* | yes |  Watson IoT platform organization ID | - | - | "xvfrw1" |
 | deviceId | *string* | yes | Device ID | - | - | "newDevice" |
 | typeId | *string* | yes | Device Type ID | - | - |"sampleType" |
 
 #####Usage 
 ```bash 
-wsk action invoke /whisk.system/iot/delete_device -p orgId 'xxxxxxxx' -p apiKey 'yyyyyyyy' -p authToken 'zzzzzz' -p typeId 'Raspberry_Pi' -p deviceId "deviceId" --blocking
+wsk action invoke /whisk.system/iot/delete_device -p orgId 'xxxxxxxx' -p apiKey 'yyyyyyyy' -p apiToken 'zzzzzz' -p typeId 'Raspberry_Pi' -p deviceId "deviceId" --blocking
 
 ```
-**orgId**, **apiKey** as well as **authToken** parameters can be ignored if it is already passed to the package at binding time.
+**orgId**, **apiKey** as well as **apiToken** parameters can be ignored if it is already passed to the package at binding time.
 
-Example of success reponse:
+Example of success response:
 ```javascript
 {
   "success": "device deleted"
@@ -150,14 +162,14 @@ Example of success reponse:
 ```
 
 ####Send Device Event
-`/whisk.system/iot/send_event` is an action to send events on behalf of a device ( simplatuing a device) to Watson iot Platform.
+`/whisk.system/iot/send_event` is an action to send events on behalf of a device ( simulating a device) to Watson iot Platform.
 
 #####Parameters
 
 | **Parameter** | **Type** | **Required** | **Description**| **Options** | **Default** | **Example** |
 | ------------- | ---- | -------- | ------------ | ------- | ------- |------- |
 | apiKey | *string* | yes |  Watson IoT platform apiKey | - | - | "XXXXX" |
-| authToken | *string* | yes |  Watson IoT platform authonToken | - | - | "XXXXXXXXX" |
+| apiToken | *string* | yes |  Watson IoT platform authonToken | - | - | "XXXXXXXXX" |
 | orgId | *string* | yes |  Watson IoT platform organization ID | - | - | "xvfrw1" |
 | deviceId | *string* | yes | Device ID | - | - | "newDevice" |
 | typeId | *string* | yes | Device Type ID | - | - |"sampleType" |
@@ -167,13 +179,21 @@ Example of success reponse:
 #####Usage
 ```bash 
 
-wsk action invoke /whisk.system/iot/delete_device -p orgId 'xxxxx' -p apiKey 'yyyyyyyyy' -p authToken 'zzzzzzz' -p typeId 'sampleiot' -p deviceId "TareqDevice44" --blocking
+wsk action invoke /whisk.system/iot/delete_device -p orgId 'xxxxx' -p apiKey 'yyyyyyyyy' -p apiToken 'zzzzzzz' -p typeId 'sampleiot' -p deviceId "TareqDevice44" --blocking
 ```
-**orgId**, **apiKey** as well as **authToken** parameters can be ignored if it is already passed to the package at binding time.
+**orgId**, **apiKey** as well as **apiToken** parameters can be ignored if it is already passed to the package at binding time.
 
-Example of success reponse:
+Example of success response:
 ```javascript
 {
-  "success":"event is sent"
+  "success": "event is sent"
 }
 ```
+### Deploying Locally:
+This package contains an install script that will create a package and add the actions into it, to do so :
+```shell
+git clone https://github.com/tareqmamari/openwhisk-package-iot
+cd openwhisk-package-iot
+./install.sh <apihost> <authkey> <pathtowskcli>
+```
+Where ***apihost***: host of openwhisk, ***authkey***: Authentication key ( e.g. $(cat $OPENWHISK_HOME/config/keys/auth.whisk.system) for whisk.system auth key), ***pathtowskcli***: path of Openwhisk CLI (e.g. $OPENWHISK_HOME/bin/wsk).
