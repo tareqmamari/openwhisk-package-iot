@@ -50,9 +50,8 @@ public class IoTTests {
         String apiKey = credentials.get("apiKey");
         String authToken = credentials.get("authToken");
         String orgId = credentials.get("orgId");
-
-        Map<String, String> params = TestUtils.makeParameter(make("apiKey", apiKey), make("authToken", authToken),
-                make("typeId", "OWTestDeviceType"), make("orgId", orgId));
+ Map<String, String> params = TestUtils.makeParameter(make("apiKey", apiKey), make("authToken", authToken),
+ make("typeId", "OWTestDeviceType"), make("orgId", orgId));
 
         Pair<String, String> reponse = wsk.invokeBlocking(action, params);
 

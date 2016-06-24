@@ -46,7 +46,6 @@ function main(params) {
                 }
             };
 
-
             request(options, function(err, res, body) {
                 if (!err && res.statusCode === 204) {
                     whisk.done({"success":"device type deleted"});
