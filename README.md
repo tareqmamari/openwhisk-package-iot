@@ -19,15 +19,15 @@ This package contains different actions in order to interact with Watson Iot Pla
 | Entity | Type | Parameters | Description |
 | --- | --- | --- | --- |
 | `/whisk.system/iot` | package | orgId, apiKey, apiToken | Watson IoT Platform Package |
-| `/whisk.system/iot/create_device_type` | action | see action [details](#create-device-type) | an action to create a new device  type to the IoT platform |
-| `/whisk.system/iot/delete_device_type` | action | see action [details](#delete-device-type) | an action to delete a device type in the IoT platform |
-| `/whisk.system/iot/register_device` | action | see action [details](#register-device) | an action to add a new device to the IoT platform |
-| `/whisk.system/iot/delete_device` | action | see action [details](#delete-device) | an action to delete a registered device |
-| `/whisk.system/iot/send_event` | action | see action [details](#send-device-event) | an action to send device event |
+| `/whisk.system/iot/create_device_type` | action | see action [details](#create-device-type) | create a new device type |
+| `/whisk.system/iot/delete_device_type` | action | see action [details](#delete-device-type) | delete a device type |
+| `/whisk.system/iot/register_device` | action | see action [details](#register-device) | add a new device  |
+| `/whisk.system/iot/delete_device` | action | see action [details](#delete-device) | delete a registered device |
+| `/whisk.system/iot/send_event` | action | see action [details](#send-device-event) | send device event ( simulating a device) |
 
 ###Actions:
-####Create New Device Type
-An action to create a new device type to the IoT platform.
+####Create Device Type
+`/whisk.system/iot/create_device_type` is an action to create a new device type in Watson IoT platform.
 
 #####Parameters
 
@@ -48,7 +48,7 @@ An action to create a new device type to the IoT platform.
 | metadata | *object* | no | Metadata of the device | - | - | {"customField1": "customValue1","customField2": "customValue2"} |
 
 #####Usage
-To use this action, you need to pass the needed parameters (see the table above)
+To use this action, you need to pass the required parameters (refer to the table above)
 ```bash
 wsk action invoke /whisk.system/iot/create_device_type -p orgId 'xxxxx' -p apiKey 'yyyyyy' -p apiToken 'zzzzzzzz' -p typeId 'Raspberry_Pi' --blocking
 ```
@@ -69,7 +69,7 @@ Example of success response:
 
 
 ####Delete Device Type
-An action to create a new device type to the IoT platform.
+`/whisk.system/iot/delete_device_type` is an action to delete an existing device type in Watson IoT platform.
 
 #####Parameters
 
@@ -81,7 +81,7 @@ An action to create a new device type to the IoT platform.
 | typeId | *string* | yes | Device Type ID | - | - |"sampleType" |
 
 #####Usage
-To use this action, you need to pass the needed parameters (see the table above)
+To use this action, you need to pass the required parameters (refer to the table above)
 ```bash
 wsk action invoke /whisk.system/iot/delete_device_type -p orgId 'xxxxx' -p apiKey 'yyyyyy' -p apiToken 'zzzzzzzz' -p typeId 'Raspberry_Pi' --blocking
 ```
@@ -96,7 +96,7 @@ Example of success response:
 
 
 ####Register Device
-An action to register new device to Watson IoT platform.
+`/whisk.system/iot/register_device` is an action to register new device to Watson IoT platform.
 
 #####Parameters
 
@@ -108,23 +108,23 @@ An action to register new device to Watson IoT platform.
 | deviceId | *string* | yes | Device ID | - | - | "newDevice" |
 | typeId | *string* | yes | Device Type ID | - | - |"sampleType" |
 | deviceAuthToken | *string* | no | Device authentication token, will be generated if not supplied | - | - | "an_unhackable_token" |
-| sn | *string* | no | The serial number of the device | - | - | "10211002XYZ" |
-| manufacturer | *string* | no | The manufacturer of the device | - | - | "Texas Instruments |
-| model | *string* | no | The model of the device | - | - | "HGI500" |
-| deviceClass | *string* | no | The class of the device | false,true | false | false |
-| description | *string* | no | The descriptive name of the device | - | - | - |
-| fwVersion | *string* | no | The firmware version currently known to be on the device | - | - | "1.0" |
-| hwVersion | *string* | no | The hardware version of the device | - | false | "1.0" |
+| serialNumber | *string* | no | Serial number of the device | - | - | "10211002XYZ" |
+| manufacturer | *string* | no | Manufacturer of the device | - | - | "Texas Instruments |
+| model | *string* | no |Model of the device | - | - | "HGI500" |
+| deviceClass | *string* | no | Class of the device | false,true | false | false |
+| description | *string* | no | Descriptive name of the device | - | - | - |
+| fwVersion | *string* | no | Firmware version currently known to be on the device | - | - | "1.0" |
+| hwVersion | *string* | no | Hardware version of the device | - | false | "1.0" |
 | descriptiveLocation | *string* | no | A descriptive location, such as a room or building number, or a geographical region | - | - | "Office 220, building 16" |
 | long | *decimal* | no | Longitude in decimal degrees using the WGS84 system | - | - | 9.038550 |
 | lat | *decimal* | no | Latitude in decimal degrees using the WGS84 system | - | - | 48.665390 |
-| elev | *decimal* | no |  Elevation in meters using the WGS84 system | - | - | 507 |
+| elev | *decimal* | no | Elevation in meters using the WGS84 system | - | - | 507 |
 | accuracy | *decimal* | no | Accuracy of the position in meters | false,true | - | 5 |
 | measuredDateTime | *string* | no | Date and time of location measurement (ISO8601) | - | - | "2016-05-19T11:36:42.825Z" |
 | metadata | *object* | no | Metadata of the device | - | - | {"customField1": "customValue1","customField2": "customValue2"} |
 
 #####Usage
-To use this action, you need to pass the needed parameters (see the table above)
+To use this action, you need to pass the required parameters (refer to the table above)
 ```bash
 wsk action invoke /whisk.system/iot/register_device -p orgId 'xxxxx' -p apiKey 'yyyyyy' -p apiToken 'zzzzzzzz' -p typeId 'Raspberry_Pi' -p deviceId "deviceId" --blocking
 ```
@@ -207,7 +207,6 @@ Example of success response:
 
 #####Usage
 ```bash 
-
 wsk action invoke /whisk.system/iot/delete_device -p orgId 'xxxxx' -p apiKey 'yyyyyyyyy' -p apiToken 'zzzzzzz' -p typeId 'sampleiot' -p deviceId "TareqDevice44" --blocking
 ```
 **orgId**, **apiKey** as well as **apiToken** parameters can be ignored if it is already passed to the package at binding time.
@@ -218,6 +217,8 @@ Example of success response:
   "success": "event is sent"
 }
 ```
+
+
 ### Deploying Locally:
 This package contains an install script that will create a package and add the actions into it, to do so :
 ```shell

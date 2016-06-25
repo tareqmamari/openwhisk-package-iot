@@ -38,7 +38,7 @@ var request = require('request');
  * @param      {decimal} accuracy                  (optional)  Accuracy of the position in meters
  * @param      {string}  measuredDateTime          (optional)  Date and time of location measurement (ISO8601)
  * @param      {object}  metadata                  (optional)  Metadata of the device
- * @return     {Object}                                        Done with the result of invokation
+ * @return     {Object}                                        Done with the result of invocation
  **/
 function main(params) {
 
@@ -116,11 +116,11 @@ function main(params) {
  *                                   in order to check it and generate a string
  *                                   that contains a list of missing parameters
  * @param      {Function}  callback  the callback function has the generated
- *                                   array or an empyt one if the params is
+ *                                   array or an empty one if the params is
  *                                   empty or nothing is missing
  */
 function checkParameters(params, requiredParams, callback) {
-    console.log("Checking Existiance of Required Parameters");
+    console.log("Checking Existence of Required Parameters");
     var missingParams = [];
     for (var i = requiredParams.length - 1; i >= 0; i--) {
         console.log(requiredParams[i]);
