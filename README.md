@@ -132,7 +132,7 @@ wsk action invoke /whisk.system/iot/register_device -p orgId 'xxxxx' -p apiKey '
 ```
 **orgId**, **apiKey** as well as **apiToken** parameters can be ignored if it is already passed to the package at binding time.
 
-Example of success reponse:
+Example of success response:
 ```javascript
 {
   "apiToken": "xxxxxxxxx",
@@ -193,7 +193,7 @@ Example of success response:
 ```
 
 ####Send Device Event
-`/whisk.system/iot/send_event` is an action to send events on behalf of a device ( simulating a device) to Watson iot Platform.
+`/whisk.system/iot/send_event` is an action to send events on behalf of a device ( simulating a device).
 
 #####Parameters
 
@@ -222,10 +222,10 @@ Example of success response:
 
 
 ### Deploying Locally:
-This package contains an install script that will create a package and add the actions into it, to do so :
+This package contains an install script that will create a package and add the actions into it :
 ```shell
 git clone https://github.com/tareqmamari/openwhisk-package-iot
 cd openwhisk-package-iot
 ./install.sh <apihost> <authkey> <pathtowskcli>
 ```
-Where ***apihost***: host of openwhisk, ***authkey***: Authentication key ( e.g. $(cat $OPENWHISK_HOME/config/keys/auth.whisk.system) for whisk.system auth key), ***pathtowskcli***: path of Openwhisk CLI (e.g. $OPENWHISK_HOME/bin/wsk).
+Where ***apihost***: host of openwhisk, ***authkey***: Authentication key ( e.g. $(cat $OPENWHISK_HOME/config/keys/auth.whisk.system) for whisk.system authentication key), ***pathtowskcli***: path of Openwhisk CLI (e.g. $OPENWHISK_HOME/bin/wsk).
