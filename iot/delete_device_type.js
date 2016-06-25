@@ -40,7 +40,7 @@ function main(params) {
 
             var options = {
                 method: 'DELETE',
-                url: baseUrl + "/device/types"+params.typeId,
+                url: baseUrl + "/device/types/"+params.typeId,
                 headers: {
                     'Authorization': authorizationHeader
                 }
