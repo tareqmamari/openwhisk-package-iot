@@ -1,5 +1,7 @@
 OpenWhisk Service Enablement
 ============================
+[![Build Status](https://travis-ci.org/tareqmamari/openwhisk-package-iot.svg?branch=master)](https://travis-ci.org/tareqmamari/openwhisk-package-iot)
+
 This repository is intended to include all actions and feeds of Watson IoT Platform.
 
 ##[IBM Watson IoT Platform](https://docs.internetofthings.ibmcloud.com/swagger/v0002.html):
