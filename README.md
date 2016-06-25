@@ -8,7 +8,6 @@ This repository is intended to include all actions and feeds of Watson IoT Platf
 ### Getting Started:
 This package contains different actions in order to interact with Watson Iot Platform through Openwhisk, following is a list of prerequisite:
   1. Create an instance of Watson IoT Platform service [Bluemix Catalog](https://console.ng.bluemix.net/catalog/).
-  
   2. Generate API Key as well as API Authentication Token:
 
     ```text
@@ -32,7 +31,6 @@ This package contains different actions in order to interact with Watson Iot Pla
 `/whisk.system/iot/create_device_type` is an action to create a new device type in Watson IoT platform.
 
 #####Parameters
-
 | **Parameter** | **Type** | **Required** | **Description**| **Options** | **Default** | **Example** |
 | ------------- | ---- | -------- | ------------ | ------- | ------- |------- |
 | apiKey | *string* | yes |  Watson IoT platform apiKey | - | - | "XXXXX" |
@@ -69,12 +67,10 @@ Example of success response:
 }
 ```
 
-
 ####Delete Device Type
 `/whisk.system/iot/delete_device_type` is an action to delete an existing device type in Watson IoT platform.
 
 #####Parameters
-
 | **Parameter** | **Type** | **Required** | **Description**| **Options** | **Default** | **Example** |
 | ------------- | ---- | -------- | ------------ | ------- | ------- |------- |
 | apiKey | *string* | yes |  Watson IoT platform apiKey | - | - | "XXXXX" |
@@ -96,12 +92,10 @@ Example of success response:
 }
 ```
 
-
 ####Register Device
 `/whisk.system/iot/register_device` is an action to register new device to Watson IoT platform.
 
 #####Parameters
-
 | **Parameter** | **Type** | **Required** | **Description**| **Options** | **Default** | **Example** |
 | ------------- | ---- | -------- | ------------ | ------- | ------- |------- |
 | apiKey | *string* | yes |  Watson IoT platform apiKey | - | - | "XXXXX" |
@@ -169,7 +163,6 @@ Example of success response:
 `/whisk.system/iot/delete_device` is an action to delete a registered device.
 
 #####Parameters:
-
 | **Parameter** | **Type** | **Required** | **Description**| **Options** | **Default** | **Example** |
 | ------------- | ---- | -------- | ------------ | ------- | ------- |------- |
 | apiKey | *string* | yes |  Watson IoT platform apiKey | - | - | "XXXXX" |
@@ -196,7 +189,6 @@ Example of success response:
 `/whisk.system/iot/send_event` is an action to send events on behalf of a device ( simulating a device).
 
 #####Parameters
-
 | **Parameter** | **Type** | **Required** | **Description**| **Options** | **Default** | **Example** |
 | ------------- | ---- | -------- | ------------ | ------- | ------- |------- |
 | apiKey | *string* | yes |  Watson IoT platform apiKey | - | - | "XXXXX" |
@@ -219,7 +211,6 @@ Example of success response:
   "success": "event is sent"
 }
 ```
-
 
 ### Deploying Locally:
 This package contains an install script that will create a package and add the actions into it :
