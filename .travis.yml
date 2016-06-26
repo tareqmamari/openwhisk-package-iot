@@ -35,5 +35,5 @@ script:
  - EDGE_HOST=$(grep '^edge.host=' $WHISKPROPS_FILE | cut -d'=' -f2)
  - source $OPENWHISK_HOME/../install.sh $EDGE_HOST $AUTH_KEY $WSK_CLI
  - X="./gradlew :tests:test "
- - or f in $(ls $OPENWHISK_HOME/../tests | sed -e 's/\..*$//'); do X="$X --tests \"packages.$f\" "; done
+ - for f in $(ls $OPENWHISK_HOME/../tests | sed -e 's/\..*$//'); do X="$X --tests \"packages.$f\" "; done
  - eval $X
