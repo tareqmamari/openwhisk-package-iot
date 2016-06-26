@@ -2,12 +2,14 @@ sudo: required
 language: scala
   - 2.11.6
 
+services:
+ - docker
+
 install: true
 
 before_install:
  - openssl aes-256-cbc -K $encrypted_7a7b287bd972_key -iv $encrypted_7a7b287bd972_iv -in vcap_services.json.enc -out vcap_services.json -d
  - git clone https://github.com/openwhisk/openwhisk.git
- - cp ./tests/* ./openwhisk/tests/src/packages/
  - ./openwhisk/tools/travis/setup.sh
 
 script:
@@ -31,6 +33,7 @@ script:
  - AUTH_KEY=$(cat $OPENWHISK_HOME/config/keys/auth.whisk.system)
  - EDGE_HOST=$(grep '^edge.host=' $WHISKPROPS_FILE | cut -d'=' -f2)
  - source $OPENWHISK_HOME/../install.sh $EDGE_HOST $AUTH_KEY $WSK_CLI
+  - cp .$OPENWHISK_HOME/../tests/* ./openwhisk/tests/src/packages/
  - X="./gradlew :tests:test "
  - for f in $(ls $OPENWHISK_HOME/../tests | sed -e 's/\..*$//'); do X="$X --tests \"packages.$f\" "; done
  - eval $X
