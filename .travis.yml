@@ -10,7 +10,6 @@ before_install:
 - "./openwhisk/tools/travis/setup.sh"
 
 script:
-- docker rmi $(docker ps -a -q)
 - VCAP_SERVICES_FILE="$(readlink -f vcap_services.json)"
 - OPENWHISK_HOME=$(cd openwhisk && pwd)
 - "$OPENWHISK_HOME/tools/build/scanCode.py $OPENWHISK_HOME"
