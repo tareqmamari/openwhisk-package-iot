@@ -2,9 +2,6 @@ sudo: required
 language: scala
   - 2.11.6
 
-services:
- - docker
-
 install: true
 
 before_install:
