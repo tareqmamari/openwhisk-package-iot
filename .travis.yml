@@ -4,9 +4,10 @@ services:
 - docker
 install: true
 before_install:
-- openssl aes-256-cbc -K $encrypted_3e8b215496ca_key -iv $encrypted_3e8b215496ca_iv -in vcap_services.json.enc -out vcap_services.json -d
+- openssl aes-256-cbc -K $encrypted_7a7b287bd972_key -iv $encrypted_7a7b287bd972_iv -in vcap_services.json.enc -out vcap_services.json -d
 - git clone https://github.com/openwhisk/openwhisk.git
 - "./openwhisk/tools/travis/setup.sh"
+
 script:
 - VCAP_SERVICES_FILE="$(readlink -f vcap_services.json)"
 - OPENWHISK_HOME=$(cd openwhisk && pwd)
@@ -23,8 +24,7 @@ script:
 - "$ANSIBLE_CMD openwhisk.yml"
 - cd $OPENWHISK_HOME
 - WHISKPROPS_FILE="$OPENWHISK_HOME/whisk.properties"
-- sed -i 's:^[ \t]*vcap.services.file[ \t]*=\([ \t]*.*\)$:vcap.services.file='$VCAP_SERVICES_FILE':'
-  $WHISKPROPS_FILE
+- sed -i 's:^[ \t]*vcap.services.file[ \t]*=\([ \t]*.*\)$:vcap.services.file='$VCAP_SERVICES_FILE':'  $WHISKPROPS_FILE
 - WSK_CLI=$OPENWHISK_HOME/bin/wsk
 - AUTH_KEY=$(cat $OPENWHISK_HOME/config/keys/auth.whisk.system)
 - EDGE_HOST=$(grep '^edge.host=' $WHISKPROPS_FILE | cut -d'=' -f2)
