@@ -1,2 +1,2 @@
-vcap_services.json
+tests/credentials.json
 openwhisk
