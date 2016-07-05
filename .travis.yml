@@ -18,7 +18,7 @@ script:
 - ANSIBLE_CMD="ansible-playbook -i environments/travis"
 - "$ANSIBLE_CMD setup.yml"
 - "$ANSIBLE_CMD prereq.yml"
--  ANSIBLE_CMD -vvvv couchdb.yml 
+-  $ANSIBLE_CMD -vvvv couchdb.yml 
 - "$ANSIBLE_CMD initdb.yml"
 - cd $OPENWHISK_HOME
 - "./gradlew distDocker"
