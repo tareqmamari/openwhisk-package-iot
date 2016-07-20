@@ -39,14 +39,19 @@ class IoTTests extends TestHelpers with WskTestHelpers with Matchers {
 
   val typeId = "OWTestDeviceType"
   val deviceId = "OWTestDeviceId"
+
   behavior of "Watson IoT Platform Service Package"
 
   Sequential
 
   "create device type action" should "create an IoT Platform device type and return information about the created device type" in {
 
-    val actionName = "/whisk.system/iot/create_device_type"
-    val params = HashMap("apiKey" -> apiKey.toJson, "apiToken" -> apiToken.toJson, "orgId" -> orgId.toJson, "typeId" -> typeId.toJson);
+    val actionName = "/whisk.system/iot/createDeviceType"
+    val params = HashMap(
+      "apiKey" -> apiKey.toJson,
+      "apiToken" -> apiToken.toJson,
+      "orgId" -> orgId.toJson,
+      "typeId" -> typeId.toJson);
 
     withActivation(wsk.activation, wsk.action.invoke(actionName, params)) {
       _.fields("response").toString should include(""""id":"OWTestDeviceType"""")
@@ -55,7 +60,7 @@ class IoTTests extends TestHelpers with WskTestHelpers with Matchers {
 
   "register device action" should "register a new device and return information about the registered device" in {
 
-    val actionName = "/whisk.system/iot/register_device"
+    val actionName = "/whisk.system/iot/registerDevice"
     val params = HashMap("apiKey" -> apiKey.toJson, "apiToken" -> apiToken.toJson, "orgId" -> orgId.toJson, "typeId" -> typeId.toJson, "deviceId" -> deviceId.toJson);
 
     withActivation(wsk.activation, wsk.action.invoke(actionName, params)) {
@@ -65,7 +70,7 @@ class IoTTests extends TestHelpers with WskTestHelpers with Matchers {
 
   "send event action" should "send an event and return success" in {
 
-    val actionName = "/whisk.system/iot/send_event"
+    val actionName = "/whisk.system/iot/sendEvent"
     val params = HashMap(
       "apiKey" -> apiKey.toJson,
       "apiToken" -> apiToken.toJson,
@@ -82,7 +87,7 @@ class IoTTests extends TestHelpers with WskTestHelpers with Matchers {
 
   "delete device action" should "delete a registered device and return success" in {
 
-    val actionName = "/whisk.system/iot/delete_device"
+    val actionName = "/whisk.system/iot/deleteDevice"
     val params = HashMap(
       "apiKey" -> apiKey.toJson,
       "apiToken" -> apiToken.toJson,
@@ -97,7 +102,7 @@ class IoTTests extends TestHelpers with WskTestHelpers with Matchers {
 
   "delete device type action" should "delete an existing device type and return success" in {
 
-    val actionName = "/whisk.system/iot/delete_device_type"
+    val actionName = "/whisk.system/iot/deleteDeviceType"
     val params = HashMap(
       "apiKey" -> apiKey.toJson,
       "apiToken" -> apiToken.toJson,

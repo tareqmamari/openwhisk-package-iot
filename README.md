@@ -1,4 +1,4 @@
-OpenWhisk Service Enablement
+OpenWhisk Package for Watson IoT Platform Service
 ============================
 [![Build Status](https://travis-ci.org/tareqmamari/openwhisk-package-iot.svg?branch=master)](https://travis-ci.org/tareqmamari/openwhisk-package-iot)
 
@@ -20,20 +20,20 @@ This package contains different actions in order to interact with Watson Iot Pla
 | Entity | Type | Parameters | Description |
 | --- | --- | --- | --- |
 | `/whisk.system/iot` | package | orgId, apiKey, apiToken | Watson IoT Platform Package |
-| `/whisk.system/iot/create_device_type` | action | see action [details](#create-device-type) | create a new device type |
-| `/whisk.system/iot/delete_device_type` | action | see action [details](#delete-device-type) | delete a device type |
-| `/whisk.system/iot/register_device` | action | see action [details](#register-device) | add a new device  |
-| `/whisk.system/iot/delete_device` | action | see action [details](#delete-device) | delete a registered device |
-| `/whisk.system/iot/send_event` | action | see action [details](#send-device-event) | send device event ( simulating a device) |
+| `/whisk.system/iot/createDeviceType` | action | see action [details](#create-device-type) | create a new device type |
+| `/whisk.system/iot/deleteDeviceType` | action | see action [details](#delete-device-type) | delete a device type |
+| `/whisk.system/iot/registerDevice` | action | see action [details](#register-device) | add a new device  |
+| `/whisk.system/iot/deleteDevice` | action | see action [details](#delete-device) | delete a registered device |
+| `/whisk.system/iot/sendEvent` | action | see action [details](#send-device-event) | send device event ( simulating a device) |
 
 ###Actions:
 ####Create Device Type
-`/whisk.system/iot/create_device_type` is an action to create a new device type in Watson IoT platform.
+`/whisk.system/iot/createDeviceType` is an action to create a new device type in Watson IoT platform.
 
 #####Parameters
 | **Parameter** | **Type** | **Required** | **Description**| **Options** | **Default** | **Example** |
 | ------------- | ---- | -------- | ------------ | ------- | ------- |------- |
-| apiKey | *string* | yes |  Watson IoT platform apiKey | - | - | "XXXXX" |
+| apiKey | *string* | yes |  Watson IoT platform API key | - | - | "XXXXX" |
 | apiToken | *string* | yes |  Watson IoT platform API authentication token | - | - | "XXXXXXXXX" |
 | orgId | *string* | yes |  Watson IoT platform organization ID | - | - | "xvfrw1" |
 | typeId | *string* | yes | Device Type ID | - | - |"sampleType" |
@@ -50,7 +50,7 @@ This package contains different actions in order to interact with Watson Iot Pla
 #####Usage
 To use this action, you need to pass the required parameters (refer to the table above)
 ```bash
-wsk action invoke /whisk.system/iot/create_device_type -p orgId 'xxxxx' -p apiKey 'yyyyyy' -p apiToken 'zzzzzzzz' -p typeId 'Raspberry_Pi' --blocking
+wsk action invoke /whisk.system/iot/createDeviceType -p orgId 'xxxxx' -p apiKey 'yyyyyy' -p apiToken 'zzzzzzzz' -p typeId 'Raspberry_Pi' --blocking
 ```
 **orgId**, **apiKey** as well as **apiToken** parameters can be ignored if it is already passed to the package at binding time.
 
@@ -68,12 +68,12 @@ Example of success response:
 ```
 
 ####Delete Device Type
-`/whisk.system/iot/delete_device_type` is an action to delete an existing device type in Watson IoT platform.
+`/whisk.system/iot/deleteDeviceType` is an action to delete an existing device type in Watson IoT platform.
 
 #####Parameters
 | **Parameter** | **Type** | **Required** | **Description**| **Options** | **Default** | **Example** |
 | ------------- | ---- | -------- | ------------ | ------- | ------- |------- |
-| apiKey | *string* | yes |  Watson IoT platform apiKey | - | - | "XXXXX" |
+| apiKey | *string* | yes |  Watson IoT platform API key | - | - | "XXXXX" |
 | apiToken | *string* | yes |  Watson IoT platform API authentication token | - | - | "XXXXXXXXX" |
 | orgId | *string* | yes |  Watson IoT platform organization ID | - | - | "xvfrw1" |
 | typeId | *string* | yes | Device Type ID | - | - |"sampleType" |
@@ -81,7 +81,7 @@ Example of success response:
 #####Usage
 To use this action, you need to pass the required parameters (refer to the table above)
 ```bash
-wsk action invoke /whisk.system/iot/delete_device_type -p orgId 'xxxxx' -p apiKey 'yyyyyy' -p apiToken 'zzzzzzzz' -p typeId 'Raspberry_Pi' --blocking
+wsk action invoke /whisk.system/iot/deleteDeviceType -p orgId 'xxxxx' -p apiKey 'yyyyyy' -p apiToken 'zzzzzzzz' -p typeId 'Raspberry_Pi' --blocking
 ```
 **orgId**, **apiKey** as well as **apiToken** parameters can be ignored if it is already passed to the package at binding time.
 
@@ -93,12 +93,12 @@ Example of success response:
 ```
 
 ####Register Device
-`/whisk.system/iot/register_device` is an action to register new device to Watson IoT platform.
+`/whisk.system/iot/registerDevice` is an action to register new device to Watson IoT platform.
 
 #####Parameters
 | **Parameter** | **Type** | **Required** | **Description**| **Options** | **Default** | **Example** |
 | ------------- | ---- | -------- | ------------ | ------- | ------- |------- |
-| apiKey | *string* | yes |  Watson IoT platform apiKey | - | - | "XXXXX" |
+| apiKey | *string* | yes |  Watson IoT platform API key | - | - | "XXXXX" |
 | apiToken | *string* | yes |  Watson IoT platform authonToken | - | - | "XXXXXXXXX" |
 | orgId | *string* | yes |  Watson IoT platform organization ID | - | - | "xvfrw1" |
 | deviceId | *string* | yes | Device ID | - | - | "newDevice" |
@@ -122,7 +122,7 @@ Example of success response:
 #####Usage
 To use this action, you need to pass the required parameters (refer to the table above)
 ```bash
-wsk action invoke /whisk.system/iot/register_device -p orgId 'xxxxx' -p apiKey 'yyyyyy' -p apiToken 'zzzzzzzz' -p typeId 'Raspberry_Pi' -p deviceId "deviceId" --blocking
+wsk action invoke /whisk.system/iot/registerDevice -p orgId 'xxxxx' -p apiKey 'yyyyyy' -p apiToken 'zzzzzzzz' -p typeId 'Raspberry_Pi' -p deviceId "deviceId" --blocking
 ```
 **orgId**, **apiKey** as well as **apiToken** parameters can be ignored if it is already passed to the package at binding time.
 
@@ -160,12 +160,12 @@ Example of success response:
 ```
 
 ####Delete Device
-`/whisk.system/iot/delete_device` is an action to delete a registered device.
+`/whisk.system/iot/deleteDevice` is an action to delete a registered device.
 
 #####Parameters:
 | **Parameter** | **Type** | **Required** | **Description**| **Options** | **Default** | **Example** |
 | ------------- | ---- | -------- | ------------ | ------- | ------- |------- |
-| apiKey | *string* | yes |  Watson IoT platform apiKey | - | - | "XXXXX" |
+| apiKey | *string* | yes |  Watson IoT platform API key | - | - | "XXXXX" |
 | apiToken | *string* | yes |  Watson IoT platform authonToken | - | - | "XXXXXXXXX" |
 | orgId | *string* | yes |  Watson IoT platform organization ID | - | - | "xvfrw1" |
 | deviceId | *string* | yes | Device ID | - | - | "newDevice" |
@@ -173,7 +173,7 @@ Example of success response:
 
 #####Usage 
 ```bash 
-wsk action invoke /whisk.system/iot/delete_device -p orgId 'xxxxxxxx' -p apiKey 'yyyyyyyy' -p apiToken 'zzzzzz' -p typeId 'Raspberry_Pi' -p deviceId "deviceId" --blocking
+wsk action invoke /whisk.system/iot/deleteDevice -p orgId 'xxxxxxxx' -p apiKey 'yyyyyyyy' -p apiToken 'zzzzzz' -p typeId 'Raspberry_Pi' -p deviceId "deviceId" --blocking
 
 ```
 **orgId**, **apiKey** as well as **apiToken** parameters can be ignored if it is already passed to the package at binding time.
@@ -186,12 +186,12 @@ Example of success response:
 ```
 
 ####Send Device Event
-`/whisk.system/iot/send_event` is an action to send events on behalf of a device ( simulating a device).
+`/whisk.system/iot/sendEvent` is an action to send events on behalf of a device ( simulating a device).
 
 #####Parameters
 | **Parameter** | **Type** | **Required** | **Description**| **Options** | **Default** | **Example** |
 | ------------- | ---- | -------- | ------------ | ------- | ------- |------- |
-| apiKey | *string* | yes |  Watson IoT platform apiKey | - | - | "XXXXX" |
+| apiKey | *string* | yes |  Watson IoT platform API key | - | - | "XXXXX" |
 | apiToken | *string* | yes |  Watson IoT platform authonToken | - | - | "XXXXXXXXX" |
 | orgId | *string* | yes |  Watson IoT platform organization ID | - | - | "xvfrw1" |
 | deviceId | *string* | yes | Device ID | - | - | "newDevice" |
@@ -201,7 +201,7 @@ Example of success response:
 
 #####Usage
 ```bash 
-wsk action invoke /whisk.system/iot/delete_device -p orgId 'xxxxx' -p apiKey 'yyyyyyyyy' -p apiToken 'zzzzzzz' -p typeId 'sampleiot' -p deviceId "TareqDevice44" --blocking
+wsk action invoke /whisk.system/iot/deleteDevice -p orgId 'xxxxx' -p apiKey 'yyyyyyyyy' -p apiToken 'zzzzzzz' -p typeId 'sampleiot' -p deviceId "TareqDevice44" --blocking
 ```
 **orgId**, **apiKey** as well as **apiToken** parameters can be ignored if it is already passed to the package at binding time.
 
@@ -212,7 +212,7 @@ Example of success response:
 }
 ```
 
-### Deploying Locally:
+### Install and Uninstall Package:
 This package contains an install script that will create a package and add the actions into it :
 ```shell
 git clone https://github.com/tareqmamari/openwhisk-package-iot
@@ -220,3 +220,5 @@ cd openwhisk-package-iot
 ./install.sh <apihost> <authkey> <pathtowskcli>
 ```
 Where ***apihost***: host of openwhisk, ***authkey***: Authentication key ( e.g. $(cat $OPENWHISK_HOME/config/keys/auth.whisk.system) for whisk.system authentication key), ***pathtowskcli***: path of Openwhisk CLI (e.g. $OPENWHISK_HOME/bin/wsk).
+
+Note: To uninstall the package please use `./uninstall $API_HOST $AUTH_KEY $WSK`

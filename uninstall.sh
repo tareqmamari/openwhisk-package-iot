@@ -16,12 +16,6 @@
 # limitations under the License.
 #/
 
-# To run this command
-# WHISKPROPS_FILE="$OPENWHISK_HOME/whisk.properties"
-# WSK_CLI=$OPENWHISK_HOME/bin/wsk
-# AUTH_KEY=$(cat $OPENWHISK_HOME/config/keys/auth.whisk.system)
-# EDGE_HOST=$(grep '^edge.host=' $WHISKPROPS_FILE | cut -d'=' -f2)
-
 set -e
 set -x
 
@@ -37,15 +31,14 @@ WSK_CLI="$3"
 PACKAGE_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 echo Uninstalling Watson IoT Platform Package \
 
+$WSK_CLI --apihost $APIHOST action delete --auth $AUTH iot/sendEvent
 
-$WSK_CLI --apihost "$APIHOST" action delete --auth "$AUTH" iot/create_device_type
+$WSK_CLI --apihost $APIHOST action delete --auth $AUTH iot/registerDevice
 
-$WSK_CLI --apihost "$APIHOST" action delete --auth "$AUTH" iot/delete_device_type
+$WSK_CLI --apihost $APIHOST action delete --auth $AUTH iot/deleteDevice
 
-$WSK_CLI --apihost "$APIHOST" action delete --auth "$AUTH"  iot/register_device
+$WSK_CLI --apihost $APIHOST action delete --auth $AUTH iot/createDeviceType
 
-$WSK_CLI --apihost "$APIHOST" action delete --auth "$AUTH" iot/delete_device
+$WSK_CLI --apihost $APIHOST action delete --auth $AUTH iot/deleteDeviceType
 
-$WSK_CLI --apihost "$APIHOST" action delete --auth "$AUTH" iot/send_event
-
-$WSK_CLI --apihost "$APIHOST" package delete --auth "$AUTH" iot
+$WSK_CLI --apihost $APIHOST package delete --auth $AUTH iot

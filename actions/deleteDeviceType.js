@@ -17,20 +17,11 @@
 var request = require('request');
 
 /**
- * An action to create new device Type in Watson IoT platform.
- * @param      {string}  apiKey                    (required)  Watson IoT platform apiKey
- * @param      {string}  apiToken                  (required)  Authentication token of an Watson IoT platform
+ * An action to delete a device Type in Watson IoT platform.
+ * @param      {string}  apiKey                    (required)  Watson IoT platform API key
+ * @param      {string}  apiToken                  (required)  Watson IoT platform authentication token
  * @param      {string}  orgId                     (required)  IoT platform Organization Id
  * @param      {string}  typeId                    (required)  Device Type Id
- * @param      {string}  serialNumber              (optional)  Serial number of the device
- * @param      {string}  manufacturer              (optional)  Manufacturer of the device
- * @param      {string}  model                     (optional)  Model of the device
- * @param      {string}  deviceClass               (optional)  Class of the device
- * @param      {string}  description               (optional)  Descriptive name of the device
- * @param      {string}  fwVersion                 (optional)  Firmware version currently known to be on the device
- * @param      {string}  hwVersion                 (optional)  Hardware version of the device
- * @param      {string}  descriptiveLocation       (optional)  Descriptive location, such as a room or building number, or a geographical region
- * @param      {object}  metadata                  (optional)  Metadata of the device
  * @return     {Object}                                        Done with the result of invocation
  **/
 function main(params) {
@@ -44,44 +35,20 @@ function main(params) {
         } else {
             var baseUrl = 'https://' + params.orgId + '.internetofthings.ibmcloud.com:443/api/v0002';
 
-            var authorizationHeader = "Basic " + new Buffer(params.apiKey + ":" + params.apiToken).toString("base64");
-
-
-            var deviceInfo = {
-                "serialNumber": params.serialNumber,
-                "manufacturer": params.manufacturer,
-                "model": params.model,
-                "deviceClass": params.deviceClass,
-                "description": params.description,
-                "fwVersion": params.fwVersion,
-                "hwVersion": params.hwVersion,
-                "descriptiveLocation": params.descriptiveLocation
-            };
-
-            var metadata = params.metadata;
-            var body = {
-                "id": params.typeId,
-                "description": params.description,
-                "classId": "Device",
-                "deviceInfo": deviceInfo,
-                "metadata": metadata
-            };
-
             var options = {
-                method: 'POST',
-                url: baseUrl + "/device/types",
-                body: JSON.stringify(body),
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': authorizationHeader
+                method: 'DELETE',
+                url: baseUrl + "/device/types/" + params.typeId,
+                auth: {
+                    user: params.apiKey,
+                    pass: params.apiToken
                 }
             };
 
-
             request(options, function(err, res, body) {
-                if (!err && res.statusCode === 201) {
-                    var b = JSON.parse(body);
-                    whisk.done(b);
+                if (!err && res.statusCode === 204) {
+                    whisk.done({
+                        "success": "device type deleted"
+                    });
 
                 } else {
                     whisk.error({
@@ -91,7 +58,6 @@ function main(params) {
                     });
                 }
             });
-
         }
     });
     return whisk.async();

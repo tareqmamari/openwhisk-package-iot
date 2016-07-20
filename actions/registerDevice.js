@@ -18,11 +18,11 @@ var request = require('request');
 
 /**
  * An action to register new device to Watson IoT platform.
- * @param      {string}  apiKey                    (required)  Watson IoT platform apiKey
- * @param      {string}  apiToken                  (required)  Authentication token of an Watson IoT platform
+ * @param      {string}  apiKey                    (required)  Watson IoT platform API key
+ * @param      {string}  apiToken                  (required)  Watson IoT platform authentication token
  * @param      {string}  orgId                     (required)  IoT platform Organization Id
- * @param      {string}  deviceId                  (required)  Device Name/Id
  * @param      {string}  typeId                    (required)  Device Type Id
+ * @param      {string}  deviceId                  (required)  Device Name/Id
  * @param      {string}  deviceAuthToken           (optional)  Device authentication token, default: system will generate one
  * @param      {string}  serialNumber              (optional)  Serial number of the device
  * @param      {string}  manufacturer              (optional)  Manufacturer of the device
@@ -50,8 +50,6 @@ function main(params) {
             return whisk.error("Missing required parameters: " + missingParams);
         } else {
             var baseUrl = 'https://' + params.orgId + '.internetofthings.ibmcloud.com:443/api/v0002';
-
-            var authorizationHeader = "Basic " + new Buffer(params.apiKey + ":" + params.apiToken).toString("base64");
 
             var deviceInfo = {
                 "serialNumber": params.serialNumber,
@@ -84,16 +82,19 @@ function main(params) {
                 method: 'POST',
                 url: baseUrl + '/device/types/' + params.typeId + '/devices',
                 body: JSON.stringify(body),
+                auth: {
+                    user: params.apiKey,
+                    pass: params.apiToken
+                },
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': authorizationHeader
+                    'Content-Type': 'application/json'
                 }
             };
 
             request(options, function(err, res, body) {
                 if (!err && res.statusCode === 201) {
-                    var b = JSON.parse(body);
-                    whisk.done(b);
+                    var parsedBody = JSON.parse(body);
+                    whisk.done(parsedBody);
                 } else {
                     whisk.error({
                         statusCode: (res || {}).statusCode,
@@ -104,7 +105,6 @@ function main(params) {
             });
         }
     });
-
 
     return whisk.async();
 }

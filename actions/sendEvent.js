@@ -17,17 +17,18 @@
 var request = require('request');
 
 /**
- * Delete a registered device in Watson IoT Platform
- * @param      {string}  apiKey    (required)  Watson IoT platform apiKey
- * @param      {string}  apiToken  (required)  Authentication token of an Watson IoT platform
+ * Send an event simulating a device.
+ * @param      {string}  apiKey    (required)  Watson IoT platform API key
+ * @param      {string}  apiToken  (required)  Watson IoT platform authentication token
  * @param      {string}  orgId     (required)  IoT platform Organization Id
  * @param      {string}  typeId    (required)  Device Type ID
- * @param      {string}  deviceId  (required)  Authentication token of an Watson IoT platform
+ * @param      {string}  deviceId  (required)  Watson IoT platform authentication token
+ * @param      {string}  eventName (required)  Event Name
+ * @param      {string}  eventBody (required)  Event Data
  * @return     {Object}                        Done with the result of invocation
  **/
 function main(params) {
-
-    var requiredParams = ["apiKey", "apiToken", 'orgId', 'typeId', 'deviceId'];
+    var requiredParams = ["apiKey", "apiToken", 'orgId', 'typeId', 'deviceId', 'eventName', 'eventBody'];
 
     checkParameters(params, requiredParams, function(missingParams) {
         if (missingParams != "") {
@@ -36,20 +37,24 @@ function main(params) {
         } else {
             var baseUrl = 'https://' + params.orgId + '.internetofthings.ibmcloud.com:443/api/v0002';
 
-            var authorizationHeader = "Basic " + new Buffer(params.apiKey + ":" + params.apiToken).toString("base64");
-
             var options = {
-                method: 'DELETE',
-                url: baseUrl + '/device/types/' + params.typeId + '/devices/' + params.deviceId,
+                method: 'POST',
+                url: baseUrl + '/application/types/' + params.typeId + '/devices/' + params.deviceId + '/events/' + params.eventName,
+                body: params.eventBody,
+                auth: {
+                    user: params.apiKey,
+                    pass: params.apiToken
+                },
                 headers: {
-                    'Authorization': authorizationHeader
+                    'Content-Type': 'application/json'
                 }
             };
 
             request(options, function(err, res, body) {
-                if (!err && res.statusCode === 204) {
+                if (!err && res.statusCode === 200) {
+                    console.log(body);
                     whisk.done({
-                        "success": "device deleted"
+                        "success": "event is sent"
                     });
                 } else {
                     whisk.error({
@@ -61,7 +66,6 @@ function main(params) {
             });
         }
     });
-
     return whisk.async();
 }
 
