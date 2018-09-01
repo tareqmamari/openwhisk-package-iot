@@ -10,11 +10,11 @@ This package contains different actions in order to interact with Watson Iot Pla
   1. Create an instance of Watson IoT Platform service [Bluemix Catalog](https://console.ng.bluemix.net/catalog/).
   2. Generate API Key as well as API Authentication Token:
 
-    ```text
+    
     - In the sidebar of Watson IoT Platform dashboard -> Access 
     - Select API Keys Tab 
     - Press Generate API Key button 
-    ```
+    
   ***Note:*** Copy the API key as well as the authentication token as you will not be able to restore the authentication token after closing the window. 
 
 | Entity | Type | Parameters | Description |
